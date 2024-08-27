@@ -1,5 +1,5 @@
 // import { LargeNumberLike } from 'crypto';
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 // TODO: Define a class for the Weather object
 class Weather {
@@ -13,7 +13,7 @@ class Weather {
         this.humidity = data.main.humidity;
     }
     convertKelvinToFahrenheit(kelvin) {
-        return Math.round((kelvin - 273.15) * 9 / 5 + 32);
+        return Math.round(((kelvin - 273.15) * 9) / 5 + 32);
     }
 }
 // TODO: Complete the WeatherService class
@@ -21,7 +21,7 @@ class WeatherService {
     constructor() {
         this.baseURL = process.env.API_BASE_URL;
         this.apiKey = process.env.API_KEY;
-        this.city = '';
+        this.city = "";
     }
     // TODO: Create fetchLocationData method
     async fetchLocationData(query) {
@@ -39,7 +39,7 @@ class WeatherService {
     destructureLocationData(locationData) {
         return {
             lat: locationData.lat,
-            lon: locationData.lon
+            lon: locationData.lon,
         };
     }
     // TODO: Create buildGeocodeQuery method
@@ -75,7 +75,7 @@ class WeatherService {
         const dailyForecastMap = new Map();
         weatherData.forEach((forecast) => {
             const date = new Date(forecast.dt_txt);
-            const formattedDate = date.toISOString().split('T')[0];
+            const formattedDate = date.toISOString().split("T")[0];
             if (!dailyForecastMap.has(formattedDate)) {
                 dailyForecastMap.set(formattedDate, forecast);
             }
@@ -84,11 +84,6 @@ class WeatherService {
         const weatherForecastArray = forecastArray.map((forecast) => new Weather(forecast, currentWeather.city));
         weatherForecastArray.unshift(currentWeather);
         return weatherForecastArray.slice(1, 7);
-        // const forecastArray: Weather[] = weatherData.slice(1, 6).map((forecast: object) => {
-        //   return new Weather(forecast, currentWeather.city);
-        // });
-        // forecastArray.unshift(currentWeather);
-        // return forecastArray;
     }
     // TODO: Complete getWeatherForCity method
     async getWeatherForCity(city) {
